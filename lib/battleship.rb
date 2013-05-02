@@ -1,14 +1,6 @@
 
 
 
-
-
-
-
-
-
-
-
 =begin
 
 parts of the game
@@ -32,13 +24,18 @@ class GameMechanics
 
   def inititalize
     how_many_players
+    @current_play_index = 0
+    @board = Board.new
+    player_picks_board_size
     how_many_squares
     player_picks_ships
-    player_picks_squares
+    @player_ships = []    
   end
 
+# player selection
 
-  def how_many_players(number_of_players)
+  def how_many_players
+    @players = Player.new
   end
 
   def how_many_squares(number_of_squares)
@@ -50,9 +47,20 @@ class GameMechanics
   def player_picks_squares(:player)
   end
 
-  def play_turn(@player)
-    puts "it is #{:player}'s turn"
-      @player.player_makes_selection
+# Playing the game
+
+  def play!
+    puts "it is #{@player}'s turn"
+    until game_over? do
+      start_next_players_turn
+    end
+  end
+
+  def start_next_players_turn
+    current_play_index += 1
+    if @current_turn_index >= @players.size
+        @current_turn_index = 0
+    end
   end
 
   def player_makes_selection
@@ -62,13 +70,18 @@ class GameMechanics
   def sink_ship?
   end
 
-  def win?
+  def won?
+  end
+
+  def game_over?
+    @players.select { | player | player.won? }.any?
+    end
   end
 
   def play_again?
   end
 
-  #display
+  # display
 
   def display_oppening_message
     puts "battleship rules:" #add actual battleship rules.
