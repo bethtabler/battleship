@@ -1,5 +1,16 @@
 
+
+
+
+
+
+
+
+
+
+
 =begin
+
 parts of the game
 
 ships
@@ -7,44 +18,48 @@ players
 board
 play_game
 
+multi-player battleship
+
 =end
 
 
 
-class Players
-
-  def initialize
-    player_battleships
-    player_select_squares
-  end
-
-  def player_battleships
-  end
-
-  def player_select_squares
-  end
 
 
-end
+class GameMechanics
 
-
-class PlayGame
+  attr_accessor: :player
 
   def inititalize
-    play_turn
-    play_again?
+    how_many_players
+    how_many_squares
+    player_picks_ships
+    player_picks_squares
   end
 
-  def play_turn
+
+  def how_many_players(number_of_players)
+  end
+
+  def how_many_squares(number_of_squares)
+  end
+
+  def player_picks_ships(:player)
+  end
+
+  def player_picks_squares(:player)
+  end
+
+  def play_turn(@player)
     puts "it is #{:player}'s turn"
-
+      @player.player_makes_selection
   end
+
+  def player_makes_selection
+  end
+
 
   def sink_ship?
-    if 
-      display_you_sunk_my_battleship 
-    
-
   end
 
   def win?
@@ -80,4 +95,5 @@ class PlayGame
 
 
 end
+
 
