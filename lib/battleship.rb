@@ -10,8 +10,10 @@ players
 board
 play_game
 
-multi-player battleship
+2+ battleship
 
+
+needs refactor and pull out player class. 
 =end
 
 
@@ -98,8 +100,8 @@ class GameMechanics
   def display_you_missed_my_battleship
     puts "You missed my battleship. Hahahaha Go back to the old country you wanker."
 
-  def display_winner_message
-    puts "#{:player} you have won this round, but #{loser} shall win the war."
+  def display_winner_message(@player)
+    puts "#{@player} you have won this round, but #{loser} shall win the war."
   end
 
   def display_play_again
@@ -109,4 +111,17 @@ class GameMechanics
 
 end
 
+   attr_accessor :position, :balance, :name
+  
+  def initialize(game, name)
+    @position = 0
+    @doubles_count = 0
+    @balance = 1500
+    @dice = game.dice
+    @board = game.board
+    @name = name
+    @owned_properties = []
+  end
+  
 
+ 
