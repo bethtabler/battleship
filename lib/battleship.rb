@@ -17,12 +17,39 @@ needs refactor and pull out player class.
 =end
 
 
+class Player
+
+attr_accessor :player
+
+  def initialize
+    @player = Player.new
+    player_name
+    player_picks_ships(@player)
+    player_picks_squares(@player)
+  end
+
+  def player_name
+    player_name_message
+    name = get.chomp
+    @player = name
+  end
+
+
+  def player_picks_ships(@player)
+    player_picks_ship_message
+  end
+
+  def player_picks_squares(@player)
+    player_picks_squares_message
+  end
+
+end
 
 
 
 class GameMechanics
 
-  attr_accessor: :player
+  attr_accessor :player
 
   def inititalize
     how_many_players
@@ -30,7 +57,7 @@ class GameMechanics
     @board = Board.new
     player_picks_board_size
     how_many_squares
-    player_picks_ships
+    player_picks_opponents_ships
     @player_ships = []    
   end
 
@@ -40,13 +67,13 @@ class GameMechanics
     @players = Player.new
   end
 
+  def player_picks_board_size
+  end
+
   def how_many_squares(number_of_squares)
   end
 
-  def player_picks_ships(:player)
-  end
-
-  def player_picks_squares(:player)
+  def player_picks_opponents_ships
   end
 
 # Playing the game
@@ -84,6 +111,19 @@ class GameMechanics
   end
 
   # display
+
+  def player_picks_squares_message
+    puts "Which squares would you like to put your ships on?"
+  end
+
+  def player_picks_ship_message
+    puts "Which ships would you like to select?"#add how to select ships info
+  end
+
+  def player_name_message
+    puts "What is your name?"
+  end
+
 
   def display_oppening_message
     puts "battleship rules:" #add actual battleship rules.
