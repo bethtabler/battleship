@@ -1,5 +1,8 @@
 
+
+
 =begin
+
 parts of the game
 
 ships
@@ -7,53 +10,80 @@ players
 board
 play_game
 
+2+ battleship
+
+
+needs refactor and pull out player class. 
 =end
 
 
 
-class Players
-
-  def initialize
-    player_battleships
-    player_select_squares
-  end
-
-  def player_battleships
-  end
-
-  def player_select_squares
-  end
 
 
-end
+class GameMechanics
 
-
-class PlayGame
+  attr_accessor: :player
 
   def inititalize
-    play_turn
-    play_again?
+    how_many_players
+    @current_play_index = 0
+    @board = Board.new
+    player_picks_board_size
+    how_many_squares
+    player_picks_ships
+    @player_ships = []    
   end
 
-  def play_turn
-    puts "it is #{:player}'s turn"
+# player selection
 
+  def how_many_players
+    @players = Player.new
   end
+
+  def how_many_squares(number_of_squares)
+  end
+
+  def player_picks_ships(:player)
+  end
+
+  def player_picks_squares(:player)
+  end
+
+# Playing the game
+
+  def play!
+    puts "it is #{@player}'s turn"
+    until game_over? do
+      start_next_players_turn
+    end
+  end
+
+  def start_next_players_turn
+    current_play_index += 1
+    if @current_turn_index >= @players.size
+        @current_turn_index = 0
+    end
+  end
+
+  def player_makes_selection
+  end
+
 
   def sink_ship?
-    if 
-      display_you_sunk_my_battleship 
-    
-
   end
 
-  def win?
+  def won?
+  end
+
+  def game_over?
+    @players.select { | player | player.won? }.any?
+    end
   end
 
   def play_again?
   end
 
-  #display
+  # display
 
   def display_oppening_message
     puts "battleship rules:" #add actual battleship rules.
@@ -70,8 +100,8 @@ class PlayGame
   def display_you_missed_my_battleship
     puts "You missed my battleship. Hahahaha Go back to the old country you wanker."
 
-  def display_winner_message
-    puts "#{:player} you have won this round, but #{loser} shall win the war."
+  def display_winner_message(@player)
+    puts "#{@player} you have won this round, but #{loser} shall win the war."
   end
 
   def display_play_again
@@ -81,3 +111,17 @@ class PlayGame
 
 end
 
+   attr_accessor :position, :balance, :name
+  
+  def initialize(game, name)
+    @position = 0
+    @doubles_count = 0
+    @balance = 1500
+    @dice = game.dice
+    @board = game.board
+    @name = name
+    @owned_properties = []
+  end
+  
+
+ 
