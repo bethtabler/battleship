@@ -19,11 +19,12 @@ needs refactor and pull out player class.
 
 class Player
 
-attr_accessor :player
+attr_accessor :player, :ships
 
   def initialize
     @player = Player.new
     player_name
+    player_ships
     player_picks_ships(@player)
     player_picks_squares(@player)
   end
@@ -34,10 +35,15 @@ attr_accessor :player
     @player = name
   end
 
-
-  def player_picks_ships(@player)
+  def Player_ships(@player)
+    @battleship = Battleship.new
+    @cruiser = Cruiser.new
+    @destroyer = Destroyer.new
+    @submarine = Submarine.new
     player_picks_ship_message
-  end
+    @ships = {'Battleship' => '1', 'Cruiser' => '2' 'Destroyer' => '3' 
+      'Submarine' => '4'}
+  
 
   def player_picks_squares(@player)
     player_picks_squares_message
@@ -49,12 +55,12 @@ end
 
 class GameMechanics
 
-  attr_accessor :player
+  attr_accessor :player, :board
 
   def inititalize
-    how_many_players
-    @current_play_index = 0
     @board = Board.new
+    how_many_players
+    @current_play_index = 0  
     player_picks_board_size
     how_many_squares
     player_picks_opponents_ships
@@ -67,19 +73,20 @@ class GameMechanics
     @players = Player.new
   end
 
-  def player_picks_board_size
+  def player_picks_board_size(@board)
   end
 
   def how_many_squares(number_of_squares)
   end
 
   def player_picks_opponents_ships
+    #remove 1 from key value pair when selected by opponent. 
   end
 
 # Playing the game
 
   def play!
-    puts "it is #{@player}'s turn"
+    puts "It is #{@player}'s turn"
     until game_over? do
       start_next_players_turn
     end
@@ -108,6 +115,14 @@ class GameMechanics
   end
 
   def play_again?
+    display_play_again
+    again = get.chomp
+      if again == 'yes'.downcase
+        play!
+      end
+    end
+  end
+  
   end
 
   # display
@@ -123,7 +138,6 @@ class GameMechanics
   def player_name_message
     puts "What is your name?"
   end
-
 
   def display_oppening_message
     puts "battleship rules:" #add actual battleship rules.
