@@ -25,7 +25,7 @@ attr_accessor :player, :ships
     @player = Player.new
     player_name
     player_ships
-    player_picks_ships(@player)
+    player_ships(@player)
     player_picks_squares(@player)
   end
 
@@ -40,6 +40,7 @@ attr_accessor :player, :ships
     @cruiser = Cruiser.new
     @destroyer = Destroyer.new
     @submarine = Submarine.new
+    #do I need ship objects?
     player_picks_ship_message
     @ships = {'Battleship' => '1', 'Cruiser' => '2' 'Destroyer' => '3' 
       'Submarine' => '4'}
@@ -47,6 +48,10 @@ attr_accessor :player, :ships
 
   def player_picks_squares(@player)
     player_picks_squares_message
+    #somehow set squares for player and attach them to 'value' and through
+    # game play remove 1 from the value pair after a hit. 
+
+
   end
 
 end
@@ -62,7 +67,7 @@ class GameMechanics
     how_many_players
     @current_play_index = 0  
     player_picks_board_size
-    how_many_squares
+    which_squares
     player_picks_opponents_ships
     @player_ships = []    
   end
@@ -76,7 +81,7 @@ class GameMechanics
   def player_picks_board_size(@board)
   end
 
-  def how_many_squares(number_of_squares)
+  def which_squares
   end
 
   def player_picks_opponents_ships
@@ -104,9 +109,11 @@ class GameMechanics
 
 
   def sink_ship?
+    # if value pair = 0 then ship is sunk
   end
 
   def won?
+    # if no all value pairs = 0 then @player = lost
   end
 
   def game_over?
@@ -122,7 +129,7 @@ class GameMechanics
       end
     end
   end
-  
+
   end
 
   # display
@@ -164,18 +171,3 @@ class GameMechanics
 
 
 end
-
-   attr_accessor :position, :balance, :name
-  
-  def initialize(game, name)
-    @position = 0
-    @doubles_count = 0
-    @balance = 1500
-    @dice = game.dice
-    @board = game.board
-    @name = name
-    @owned_properties = []
-  end
-  
-
- 
